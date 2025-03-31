@@ -1,15 +1,20 @@
-import '~/global.css';
+import "~/global.css";
 
-import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
-import { Platform } from 'react-native';
-import { NAV_THEME } from '~/lib/constants';
-import { useColorScheme } from '~/lib/useColorScheme';
-import { PortalHost } from '@rn-primitives/portal';
-import { ThemeToggle } from '~/components/ThemeToggle';
-import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
+import {
+  DarkTheme,
+  DefaultTheme,
+  type Theme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import * as React from "react";
+import { Platform } from "react-native";
+import { PortalHost } from "@rn-primitives/portal";
+import { NAV_THEME } from "~/lib/constants";
+import { useColorScheme } from "~/lib/useColorScheme";
+import { ThemeToggle } from "~/components/ThemeToggle";
+import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -23,7 +28,7 @@ const DARK_THEME: Theme = {
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
-} from 'expo-router';
+} from "expo-router";
 
 export default function RootLayout() {
   const hasMounted = React.useRef(false);
@@ -35,11 +40,11 @@ export default function RootLayout() {
       return;
     }
 
-    if (Platform.OS === 'web') {
+    if (Platform.OS === "web") {
       // Adds the background color to the html element to prevent white background on overscroll.
-      document.documentElement.classList.add('bg-background');
+      document.documentElement.classList.add("bg-background");
     }
-    setAndroidNavigationBar(colorScheme);
+    void setAndroidNavigationBar(colorScheme);
     setIsColorSchemeLoaded(true);
     hasMounted.current = true;
   }, []);
@@ -50,13 +55,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <Stack>
         <Stack.Screen
-          name='index'
+          name="index"
           options={{
-            title: 'Starter Base',
-            headerRight: () => <ThemeToggle />,
+            title: "Belo Medical Group",
+            headerRight: HeaderRight,
+            
           }}
         />
       </Stack>
@@ -65,5 +71,11 @@ export default function RootLayout() {
   );
 }
 
+function HeaderRight() {
+  return <ThemeToggle/>
+}
+
 const useIsomorphicLayoutEffect =
-  Platform.OS === 'web' && typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+  Platform.OS === "web" && typeof window === "undefined"
+    ? React.useEffect
+    : React.useLayoutEffect;
