@@ -1,6 +1,5 @@
-import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
-import { ForgotPasswordContent } from "~/components/featured/form/forgot-password";
-
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
+import { ForgotPasswordContent } from '~/components/featured/form/forgot-password';
 
 export default function ForgotPassword() {
   return (
@@ -10,4 +9,4 @@ export default function ForgotPassword() {
       </View>
     </TouchableWithoutFeedback>
   );
-} 
+}

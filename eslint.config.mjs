@@ -18,7 +18,7 @@ export default [
   },
   {
     // files: ['**/*.config.*'],
-    rules: {
+    rules: {  
       'import/no-default-export': 'off',
     },
   },
