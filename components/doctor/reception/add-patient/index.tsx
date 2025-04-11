@@ -4,7 +4,7 @@ import { Text } from "~/components/ui/text";
 export function AddPatient() {
   return (
     <View className="flex flex-row justify-start gap-2">
-      <Text className="self-start text-lg">Patient Registration</Text>
+      <Text className="self-start text-lg">Select Branch</Text>
     </View>
   );
 }

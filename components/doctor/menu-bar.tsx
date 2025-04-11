@@ -2,18 +2,19 @@
 import { CircleEllipsis } from "lucide-react-native";
 import { Link } from "expo-router";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { View } from "react-native";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Text } from "../ui/text";
-import { ThemeToggle } from "../ThemeToggle";
+
 
 export function MenuBar() {
+  
+
   return(
     <DropdownMenu className="z-10">
     <DropdownMenuTrigger asChild>
-      <Button variant='ghost'>
-        <CircleEllipsis className="text-white "/>
+      <Button className="w-10 h-10" variant='ghost'>
+        <CircleEllipsis className="text-white " color='white' />
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent className='w-64 native:w-72' >
@@ -21,8 +22,8 @@ export function MenuBar() {
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
         <DropdownMenuItem>
-          <Link href='/doctor/profile'>
-          <Text>Profile</Text>
+          <Link className="w-full" href='/doctor/profile'>
+            <Text>Profile</Text>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSub>
@@ -32,12 +33,10 @@ export function MenuBar() {
           <DropdownMenuSubContent>
             <Animated.View entering={FadeIn.duration(200)}>
               <DropdownMenuItem>
-                <Text>Change Password</Text>
+                <Link className="w-full" href='/doctor/profile/profile-update'>
+                  <Text>Update Profile</Text>
+                </Link>
               </DropdownMenuItem>
-                <View className="flex flex-row items-center justify-between p-2">
-                <Text>Mode</Text>
-                <ThemeToggle/>
-                </View>
             </Animated.View>
           </DropdownMenuSubContent>
         </DropdownMenuSub>

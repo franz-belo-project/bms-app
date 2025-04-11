@@ -1,6 +1,11 @@
-import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Pen } from "lucide-react-native";
+import {  View } from "react-native";
 import { ChangePasswordDialog } from "~/components/featured/dialog/change-password/change-password-dialog";
+// import { UpdateInfoDialog } from "~/components/featured/dialog/update/update-info-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Button } from "~/components/ui/button";
+import { Text } from "~/components/ui/text";
 // import { Button } from "~/components/ui/button";
 import { H3, H4, P } from "~/components/ui/typography";
 
@@ -18,30 +23,40 @@ type ProfileScreenProps = {
   birthDate:string    
 }
 
-export function ProfileContent({userName,email,phone,position,firstName,lastName,middleName, birthDate}:ProfileScreenProps) {
+type ProfileData = {
+  data:ProfileScreenProps
+}
+
+export function ProfileContent({data}:ProfileData) {
+  const router = useRouter();
+  
   return (
     <View className="flex flex-col gap-5">
-    <View className="flex flex-col gap-1">
-    <Avatar alt="Zach Nugent's Avatar"  className="w-40 h-40">
-      <AvatarImage className="w-50 h-50" source={{ uri: GITHUB_AVATAR_URI }}/>
-      <AvatarFallback>
-        <Text>ZN</Text>
-      </AvatarFallback>
-    </Avatar>
-    <View className="flex flex-col space-y-5">
-      <H3 className="text-foreground dark:text-white">Username: {userName}</H3>
-      <H4 className="text-foreground dark:text-white">{lastName} , {firstName}  {middleName}.</H4>
-      <P className="text-secondary-foreground dark:text-secondary">{position}</P>
-      <P className="text-secondary-foreground dark:text-secondary">{email}</P>
-      <P className="text-secondary-foreground dark:text-secondary">Mobile Number: {phone}</P>
-      <P className="text-secondary-foreground dark:text-secondary">{birthDate}</P>
-    </View>
- 
-    </View>
-    <View className="flex flex-col items-start gap-2">
-      {/* <Button className="w-full max-w-[150px]"><Text>Update Profile</Text></Button> */}
-      <ChangePasswordDialog onSubmit={()=>undefined}/>
-    </View>
+      <View className="flex flex-col gap-1">
+        <View >
+          <Avatar alt="Zach Nugent's Avatar"  className="w-40 h-40">
+            <AvatarImage className="w-50 h-50" source={{ uri: GITHUB_AVATAR_URI }}/>
+            <AvatarFallback>
+              <Text>ZN</Text>
+            </AvatarFallback>
+        </Avatar>
+          <Pen color='#000' />
+        </View>  
+        <View className="flex flex-col gap-2 space-y-5">
+          <H3 className="mb-4 text-foreground">Username: {data.userName}</H3>
+          <H4 className="text-foreground ">{data.lastName} , {data.firstName}  {data.middleName}.</H4>
+          <P className="text-secondary-foreground ">{data.position}</P>
+          <P className="text-secondary-foreground ">{data.email}</P>
+          <P className="text-secondary-foreground ">Mobile Number: {data.phone}</P>
+          <P className="text-secondary-foreground ">{data.birthDate}</P>
+        </View>
+      </View>
+      {/* <View className="flex flex-col items-center gap-2"> */}
+        <Button className="w-full rounded-3xl " onPress={()=>router.push("/doctor/profile/profile-update")}><Text>Update Profile</Text></Button>
+
+        {/* <UpdateInfoDialog/> */}
+        <ChangePasswordDialog onSubmit={()=>undefined}/>
+      {/* </View> */}
   </View>
-  )
+  ) 
 }

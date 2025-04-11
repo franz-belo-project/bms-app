@@ -1,19 +1,15 @@
 import "~/global.css";
 
 import { DarkTheme, DefaultTheme, type Theme, ThemeProvider } from "@react-navigation/native";
-import { Slot, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Platform, View } from "react-native";
-import { PortalHost } from "@rn-primitives/portal";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Platform } from "react-native";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
-import { MenuBar } from "~/components/doctor/menu-bar";
 import { DoctorHeader } from "~/components/doctor/header";
-import { Text } from "~/components/ui/text";
-import { Footer } from "~/components/featured/footer";
+
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -29,7 +25,7 @@ export {
   ErrorBoundary,
 } from "expo-router";
 
-export default function DoctorLayout({children}:ReactNode) {
+export default function DoctorLayout() {
   const hasMounted = useRef(false);
     const { colorScheme, isDarkColorScheme } = useColorScheme();
     const [isColorSchemeLoaded, setIsColorSchemeLoaded] = useState(false);
@@ -53,21 +49,22 @@ export default function DoctorLayout({children}:ReactNode) {
     }
   
   return (
-    <>
-      <DoctorHeader/>
-    <Slot/>
+    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+      <Stack screenOptions={{ headerShown:false, }}> 
+        <Stack.Screen name="index" options={{ headerShown:true , header:Header }}/>
+        <Stack.Screen name="profile/index" options={{headerShown:true, header:Header,}}/>
+        <Stack.Screen name="profile/profile-update" options={{headerShown:true, header:Header,}}/>
+        <Stack.Screen name="appointment/index" options={{headerShown:true, header:Header,}}/>
 
-    </>
-    // <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-    //   <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-    //   <Stack screenOptions={{headerShown:false}}> 
-    //     <DoctorHeader/>
-    //     <Stack.Screen name="index" options={{headerShown:false}}/>
-    //     <Stack.Screen name="add-patient" options={{headerShown:true}}/>
-    //   </Stack>
-    // </ThemeProvider>
+      </Stack> 
+    </ThemeProvider>
 
   );
+}
+
+function Header() {
+  return <DoctorHeader />;
 }
 
 

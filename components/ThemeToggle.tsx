@@ -27,10 +27,10 @@ export function ThemeToggle() {
           )}
         >
           {isDarkColorScheme ? (
-            <MoonStar size={23} strokeWidth={1.25} />
+            <MoonStar color='#fff'  size={23} strokeWidth={1.25} />
           ) : (
-            <Sun size={24} strokeWidth={1.25} />
-          )}
+            <Sun color='#000' size={24} strokeWidth={1.25} />
+          )} 
         </View>
       )}
     </Pressable>
