@@ -1,12 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type BaseSyntheticEvent } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Keyboard, KeyboardAvoidingView, Platform, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View } from "react-native";
 import { z } from "zod";
 // import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "~/components/ui/dialog";
 import { Input } from "~/components/ui/input";
+import { Text } from "~/components/ui/text";
 
 export const changePasswordSchema = z
   .object({
@@ -51,7 +52,7 @@ export function ChangePasswordDialog({onSubmit}:ChangePasswordProps) {
     >
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='outline'>
+        <Button className="w-full rounded-3xl" variant='outline'>
           <Text>Change Password</Text>
         </Button>
       </DialogTrigger>

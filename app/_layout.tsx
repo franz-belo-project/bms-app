@@ -13,9 +13,9 @@ import { Platform } from 'react-native';
 import { PortalHost } from '@rn-primitives/portal';
 import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
-import { ThemeToggle } from '~/components/ThemeToggle';
+// import { ThemeToggle } from '~/components/ThemeToggle';
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
-import { Footer } from '~/components/featured/footer';
+// import { Footer } from '~/components/featured/footer';
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -62,28 +62,28 @@ export default function RootLayout() {
           name="index"
           options={{
             title: 'Belo Medical Group',
-            headerRight: HeaderRight,
+            // headerRight: HeaderRight,
             headerShown: true,
           }}
-        />
-        <Stack.Screen
+        /> 
+        <Stack.Screen 
           name="forgot-password"
           options={{
             title: 'Forgot password',
-            headerRight: HeaderRight,
-            headerShown: true,
+            // headerRight: HeaderRight,
+            headerShown: true, 
           }}
         />
       </Stack>
-      <Footer />
+      {/* <Footer /> */}
       <PortalHost />
     </ThemeProvider>
   );
-}
+} 
 
-function HeaderRight() {
-  return <ThemeToggle />;
-}
+// function HeaderRight() {
+//   return <ThemeToggle />;
+// }
 
 const useIsomorphicLayoutEffect =
   Platform.OS === 'web' && typeof window === 'undefined'
