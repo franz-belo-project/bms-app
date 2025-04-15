@@ -4,8 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
-import { type ProfileProps, profileSchema, type ProfileType } from "./helper";
 import { data } from "~/app/doctor/profile";
+import { type ProfileProps, profileSchema, type ProfileType } from "./helper";
+import { FormFieldDatePicker } from "./fragments/formfield-datepicker";
 
 export function ProfileUpdateContent({onSubmit}:ProfileProps) {
   const {
@@ -107,45 +108,6 @@ export function ProfileUpdateContent({onSubmit}:ProfileProps) {
               )}
             />
             <Controller
-              control={control}
-              name="birthDate"
-              render={({ field }) => (
-                <View className="flex flex-col w-1/2 gap-3">
-                  <Text>Birthdate: </Text>
-                  <Input
-                  className="bg-transparent rounded-3xl" 
-                    {...field}
-                    placeholder="Enter your birthdate"
-                    value={field.value}
-                    onChangeText={(value) => field.onChange(value)}                  
-                  />
-                  {errors.birthDate ? <Text className="text-destructive">
-                      {errors.birthDate.message}
-                    </Text> : null}
-                </View>
-              )}
-            />
-          </View>
-          <Controller
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <View className="flex flex-col gap-3">
-                <Text>Email: </Text>
-                <Input
-                className="bg-transparent rounded-3xl" 
-                  {...field}
-                  placeholder="Enter your email"
-                  value={field.value}
-                  onChangeText={(value) => field.onChange(value)}
-                />
-                {errors.email ? <Text className="text-destructive">
-                    {errors.email.message}
-                  </Text> : null}
-              </View>
-            )}
-          />
-          <Controller
             control={control}
             name="phoneNumber"
             render={({ field }) => (
@@ -165,6 +127,32 @@ export function ProfileUpdateContent({onSubmit}:ProfileProps) {
               </View>
             )}
           />
+          </View>
+          <Controller
+            control={control}
+            name="email"
+            render={({ field }) => (
+              <View className="flex flex-col gap-3">
+                <Text>Email: </Text>
+                <Input
+                className="bg-transparent rounded-3xl" 
+                  {...field}
+                  keyboardType="email-address"
+                  placeholder="Enter your email"
+                  value={field.value}
+                  onChangeText={(value) => field.onChange(value)}
+                />
+                {errors.email ? <Text className="text-destructive">
+                    {errors.email.message}
+                  </Text> : null}
+              </View>
+            )}
+          />
+          <View>
+
+          <FormFieldDatePicker control={control} label="Birthdate" name="birthDate"/>
+          </View>
+       
            <Button
            className="mt-10 rounded-3xl"
               onPress={async(e) => {

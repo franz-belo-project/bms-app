@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
-import { ImageBackground, type ImageSourcePropType, ScrollView, View } from "react-native";
+import { ImageBackground, type ImageSourcePropType, KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { bmsBg } from "~/assets";
 import { ProfileUpdateContent } from "~/components/doctor/profile-content/profile-update-content";
 import { Text } from "~/components/ui/text";
@@ -12,6 +12,10 @@ export default function ProfileUpdateScreen() {
          className='justify-center flex-1 bg-center bg-no-repeat bg-cover'
          source={bmsBg as ImageSourcePropType}
      >
+     <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex:1 }}
+      >
     <ScrollView className="flex-1 bg-transparent">
       <View className="flex flex-col justify-start gap-8 p-4">
       <View className="flex flex-row items-center gap-2">
@@ -21,14 +25,12 @@ export default function ProfileUpdateScreen() {
             Home
           </Text> 
         </Link>
-
         <ChevronLeft color='#000'/>
         <Link href='/doctor/profile'>
           <Text >
             Profile
           </Text> 
         </Link>
-       
         <ChevronLeft color='#000'/>
         <Text className="text-secondary">
           Profile - update
@@ -43,6 +45,7 @@ export default function ProfileUpdateScreen() {
       </View>
     </View>
        </ScrollView>
+     </KeyboardAvoidingView>
      </ImageBackground>
   );
 }
