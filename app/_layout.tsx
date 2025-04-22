@@ -15,6 +15,8 @@ import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
 // import { ThemeToggle } from '~/components/ThemeToggle';
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
+import { ReactQueryProvider } from '~/components/providers/react-query';
+import { SessionProvider } from '~/context/ctx';
 // import { Footer } from '~/components/featured/footer';
 
 const LIGHT_THEME: Theme = {
@@ -55,35 +57,32 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-      <Stack screenOptions={{ headerShown: false, gestureEnabled: false }}>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: 'Belo Medical Group',
-            // headerRight: HeaderRight,
-            headerShown: true,
-          }}
-        /> 
-        <Stack.Screen 
-          name="forgot-password"
-          options={{
-            title: 'Forgot password',
-            // headerRight: HeaderRight,
-            headerShown: true, 
-          }}
-        />
-      </Stack>
-      {/* <Footer /> */}
-      <PortalHost />
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+        <ReactQueryProvider>
+          <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+          <Stack screenOptions={{ headerShown: false, gestureEnabled: false }}>
+            <Stack.Screen
+              name="index"
+              options={{
+                title: 'Belo Medical Group',
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="forgot-password"
+              options={{
+                title: 'Forgot password',
+                headerShown: true,
+              }}
+            />
+          </Stack>
+          <PortalHost />
+        </ReactQueryProvider>
+      </ThemeProvider>
+    </SessionProvider>
   );
-} 
-
-// function HeaderRight() {
-//   return <ThemeToggle />;
-// }
+}
 
 const useIsomorphicLayoutEffect =
   Platform.OS === 'web' && typeof window === 'undefined'

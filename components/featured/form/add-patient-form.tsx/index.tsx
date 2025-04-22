@@ -1,50 +1,50 @@
-import { View } from "react-native";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
-import { H4 } from "~/components/ui/typography";
-import { Input } from "~/components/ui/input";
-import { Text } from "~/components/ui/text";
-import { addPatientSchema, type AddPatientType } from "./helper";
+import { View } from 'react-native';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
+import { H4 } from '~/components/ui/typography';
+import { Input } from '~/components/ui/input';
+import { Text } from '~/components/ui/text';
+import { addPatientSchema, type AddPatientType } from './helper';
 
 export function AddPatientForm() {
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<AddPatientType>({
-      resolver: zodResolver(addPatientSchema),
-      defaultValues: {
-        lastName: "",
-        firstName: "",
-        middleName: "",
-        employmentSector: "",
-        natureOfBusiness: "",
-        positionLevel: "",
-        gender: "",
-        religion: "",
-        birthDate: new Date(),
-        age: 0,
-        maritalStatus: "",
-        citizenship: "",
-        country: "",
-        province: "",
-        cityOrTown: "",
-        brgyOrSub: "",
-        street: "",
-        houseNumber: "",
-        mobileNumberOne: 0,
-        mobileNumberTwo: 0,
-        mobileNumberThree: 0,
-        faxNumber: 0,
-        email: "",
-        contactPerson: 0,
-        patientNotes: "",
-        gpEmployeeNumber: "", 
-      },
-    });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddPatientType>({
+    resolver: zodResolver(addPatientSchema),
+    defaultValues: {
+      lastName: '',
+      firstName: '',
+      middleName: '',
+      employmentSector: '',
+      natureOfBusiness: '',
+      positionLevel: '',
+      gender: '',
+      religion: '',
+      birthDate: new Date(),
+      age: 0,
+      maritalStatus: '',
+      citizenship: '',
+      country: '',
+      province: '',
+      cityOrTown: '',
+      brgyOrSub: '',
+      street: '',
+      houseNumber: '',
+      mobileNumberOne: 0,
+      mobileNumberTwo: 0,
+      mobileNumberThree: 0,
+      faxNumber: 0,
+      email: '',
+      contactPerson: 0,
+      patientNotes: '',
+      gpEmployeeNumber: '',
+    },
+  });
 
   return (
-    <View >
+    <View>
       <View>
         <View>
           <Controller
@@ -59,13 +59,15 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.lastName ? <Text className="text-destructive">
+                {errors.lastName ? (
+                  <Text className="text-destructive">
                     {errors.lastName.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
-             <Controller
+          <Controller
             control={control}
             name="firstName"
             render={({ field }) => (
@@ -77,13 +79,15 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.firstName ? <Text className="text-destructive">
+                {errors.firstName ? (
+                  <Text className="text-destructive">
                     {errors.firstName.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
-             <Controller
+          <Controller
             control={control}
             name="middleName"
             render={({ field }) => (
@@ -95,13 +99,15 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.middleName ? <Text className="text-destructive">
+                {errors.middleName ? (
+                  <Text className="text-destructive">
                     {errors.middleName.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
-                <Controller
+          <Controller
             control={control}
             name="employmentSector"
             render={({ field }) => (
@@ -113,13 +119,15 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.employmentSector ? <Text className="text-destructive">
+                {errors.employmentSector ? (
+                  <Text className="text-destructive">
                     {errors.employmentSector.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
-                <Controller
+          <Controller
             control={control}
             name="natureOfBusiness"
             render={({ field }) => (
@@ -131,14 +139,16 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.natureOfBusiness ? <Text className="text-destructive">
+                {errors.natureOfBusiness ? (
+                  <Text className="text-destructive">
                     {errors.natureOfBusiness.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
 
-            <Controller
+          <Controller
             control={control}
             name="positionLevel"
             render={({ field }) => (
@@ -150,14 +160,16 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.positionLevel ? <Text className="text-destructive">
+                {errors.positionLevel ? (
+                  <Text className="text-destructive">
                     {errors.positionLevel.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
 
-            <Controller
+          <Controller
             control={control}
             name="gender"
             render={({ field }) => (
@@ -169,13 +181,15 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.gender ? <Text className="text-destructive">
+                {errors.gender ? (
+                  <Text className="text-destructive">
                     {errors.gender.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
-            <Controller
+          <Controller
             control={control}
             name="religion"
             render={({ field }) => (
@@ -187,15 +201,16 @@ export function AddPatientForm() {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
-                {errors.religion ? <Text className="text-destructive">
+                {errors.religion ? (
+                  <Text className="text-destructive">
                     {errors.religion.message}
-                  </Text> : null}
+                  </Text>
+                ) : null}
               </View>
             )}
           />
-          
         </View>
       </View>
     </View>
-  )
-} 
+  );
+}
