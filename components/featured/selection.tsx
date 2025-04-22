@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-} from "react-native";
+} from 'react-native';
 
 type MultiSelectDropdownProps = {
   options: { label: string; value: string }[];
   label: string;
   value: string[];
   onChange: (selectedValues: string[]) => void;
-}
+};
 
 function MultiSelectDropdown({
   options,
@@ -22,7 +22,7 @@ function MultiSelectDropdown({
   onChange,
 }: MultiSelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [selectedOptions, setSelectedOptions] = useState(value);
 
   // Toggle dropdown visibility
@@ -49,7 +49,7 @@ function MultiSelectDropdown({
 
   // Filter options based on search query
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(search.toLowerCase())
+    option.label.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -58,12 +58,13 @@ function MultiSelectDropdown({
       <TouchableOpacity style={styles.selectContainer} onPress={toggleDropdown}>
         <Text style={styles.selectedValues}>
           {selectedOptions.length > 0
-            ? selectedOptions.join(", ")
-            : "Select options"}
+            ? selectedOptions.join(', ')
+            : 'Select options'}
         </Text>
       </TouchableOpacity>
 
-      {isOpen ? <View style={styles.dropdown}>
+      {isOpen ? (
+        <View style={styles.dropdown}>
           <TextInput
             placeholder="Search..."
             style={styles.searchInput}
@@ -81,7 +82,8 @@ function MultiSelectDropdown({
                 <Text
                   style={[
                     styles.optionText,
-                    selectedOptions.includes(item.value) && styles.selectedOption,
+                    selectedOptions.includes(item.value) &&
+                      styles.selectedOption,
                   ]}
                 >
                   {item.label}
@@ -89,7 +91,8 @@ function MultiSelectDropdown({
               </TouchableOpacity>
             )}
           />
-        </View> : null}
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -104,43 +107,43 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 5,
-    color: "#333",
+    color: '#333',
   },
   selectContainer: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: 5,
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   selectedValues: {
     fontSize: 14,
-    color: "#555",
+    color: '#555',
   },
   dropdown: {
     marginTop: 5,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderRadius: 5,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     maxHeight: 200,
   },
   searchInput: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: '#ccc',
   },
   option: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
+    borderBottomColor: '#f0f0f0',
   },
   optionText: {
     fontSize: 14,
-    color: "#333",
+    color: '#333',
   },
   selectedOption: {
-    fontWeight: "bold",
-    color: "#007bff",
+    fontWeight: 'bold',
+    color: '#007bff',
   },
 });

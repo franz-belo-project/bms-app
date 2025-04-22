@@ -1,13 +1,12 @@
-import { View } from "react-native";
-import { Agenda } from "react-native-calendars";
-import { Text } from "~/components/ui/text";
-import { items } from "../landing/explore";
+import { View } from 'react-native';
+import { Agenda } from 'react-native-calendars';
+import { Text } from '~/components/ui/text';
+import { items } from '../landing/explore';
 
 export function AppointmentScheduleContent() {
-
-   const renderEmptyData = () => {
+  const renderEmptyData = () => {
     return (
-      <View className="flex-1 justify-center items-center"> 
+      <View className="items-center justify-center flex-1">
         <Text>No events for this day</Text>
       </View>
     );
@@ -23,7 +22,7 @@ export function AppointmentScheduleContent() {
             style={{
               marginVertical: 10,
               marginTop: 30,
-              backgroundColor: "white",
+              backgroundColor: 'white',
               marginHorizontal: 10,
               padding: 10,
             }}

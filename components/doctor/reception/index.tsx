@@ -1,7 +1,6 @@
-import { Text, View } from "react-native";
+import { Text, View } from 'react-native';
 
 export function ReceptionCard() {
-
   return (
     <View className="flex flex-col items-center justify-center gap-4 p-6 bg-white rounded-xl">
       <View className="flex flex-col items-center justify-center w-full gap-2">
