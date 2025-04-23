@@ -1,17 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { Link } from 'expo-router';
 import { AlertTriangle } from 'lucide-react-native';
+import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import { Text } from '~/components/ui/text';
-// import { useSession } from '~/context/ctx';
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
 import { type SignInProps, signInSchema, type SignInType } from './helper';
 
 export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
-  // const { isLoading } = useSession();
+  const [isVisible, setIsVisible] = useState(false);
   const {
     control,
     handleSubmit,
@@ -56,6 +57,7 @@ export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
                   value={field.value}
                   onChangeText={(value) => field.onChange(value)}
                 />
+
                 {errors.username ? (
                   <Text className="text-destructive">
                     {errors.username.message}
@@ -69,15 +71,27 @@ export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
             name="password"
             render={({ field }) => (
               <View className="flex flex-col gap-3">
-                <Input
-                  {...field}
-                  className="bg-transparent rounded-3xl"
-                  placeholder="Enter your password"
-                  secureTextEntry
-                  style={{ height: 50 }}
-                  value={field.value}
-                  onChangeText={(value) => field.onChange(value)}
-                />
+                <View className="relative w-full">
+                  <Input
+                    {...field}
+                    className="pr-12 bg-transparent rounded-3xl"
+                    placeholder="Enter your password"
+                    secureTextEntry={!isVisible}
+                    style={{ height: 50 }}
+                    value={field.value}
+                    onChangeText={field.onChange}
+                  />
+                  <TouchableOpacity
+                    className="absolute -translate-y-1/2 right-4 top-1/2"
+                    onPress={() => setIsVisible(!isVisible)}
+                  >
+                    <Ionicons
+                      color="gray"
+                      name={isVisible ? 'eye' : 'eye-off'}
+                      size={24}
+                    />
+                  </TouchableOpacity>
+                </View>
                 {errors.password ? (
                   <Text className="text-destructive">
                     {errors.password.message}
