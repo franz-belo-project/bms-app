@@ -21,10 +21,36 @@ export async function signIn(payload: AuthPayload) {
 
     return authTokenSchema.parse(response.data);
   } catch (err) {
-    // console.log(err.response.data.errors.password[0]);
-    // console.log(err.response.data);
-
-    // throw new Error(err.response.data.message);
     throw handleErrors(err);
+  }
+}
+
+export const authSampleSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+  id: z.number(),
+  username: z.string(),
+  email: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  gender: z.string(),
+  image: z.string(),
+});
+
+type AuthDumpPayload = {
+  username: string;
+  password: string;
+};
+
+export async function signInAuthDump(payload: AuthDumpPayload) {
+  try {
+    const response = await axios.post(
+      'https://dummyjson.com/auth/login',
+      payload,
+    );
+
+    return authSampleSchema.parse(response.data);
+  } catch (error) {
+    throw handleErrors(error);
   }
 }
