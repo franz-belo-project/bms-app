@@ -5,12 +5,12 @@ import {
   useState,
 } from 'react';
 import { useStorageState } from '~/lib/useStorageState';
-import { signIn as apiSignIn } from './api/auth';
+import { signIn as apiSignIn, signInAuthDump } from './api/auth';
 
 const AuthContext = createContext<
   | {
       signIn: (
-        branch: string,
+        // branch: string,
         username: string,
         password: string,
       ) => Promise<void>;
@@ -34,17 +34,29 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const [[storageLoading, session], setSession] = useStorageState('session');
   const [signInLoading, setSignInLoading] = useState(false);
 
-  const handleSignIn = async (
-    branch: string,
-    username: string,
-    password: string,
-  ) => {
+  // const handleSignIn = async (
+  //   branch: string,
+  //   username: string,
+  //   password: string,
+  // ) => {
+  //   // const { token } = await apiSignIn({ branch, username, password });
+  //   // setSession(token); // store token
+  //   setSignInLoading(true);
+  //   try {
+  //     const { token } = await apiSignIn({ branch, username, password });
+  //     setSession(token);
+  //   } finally {
+  //     setSignInLoading(false);
+  //   }
+  // };
+
+  const handleSignInDump = async (username: string, password: string) => {
     // const { token } = await apiSignIn({ branch, username, password });
     // setSession(token); // store token
     setSignInLoading(true);
     try {
-      const { token } = await apiSignIn({ branch, username, password });
-      setSession(token);
+      const response = await signInAuthDump({ username, password });
+      setSession(response.accessToken);
     } finally {
       setSignInLoading(false);
     }
@@ -53,7 +65,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
-        signIn: handleSignIn,
+        signIn: handleSignInDump,
         signOut: () => {
           setSession(null);
         },

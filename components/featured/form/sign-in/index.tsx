@@ -1,15 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { Link } from 'expo-router';
+import { AlertTriangle } from 'lucide-react-native';
 import { Text } from '~/components/ui/text';
-import { useSession } from '~/context/ctx';
+// import { useSession } from '~/context/ctx';
+import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
 import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
 import { type SignInProps, signInSchema, type SignInType } from './helper';
 
-export function SignIn({ onSubmit }: SignInProps) {
-  const { isLoading } = useSession();
+export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
+  // const { isLoading } = useSession();
   const {
     control,
     handleSubmit,
@@ -17,7 +19,7 @@ export function SignIn({ onSubmit }: SignInProps) {
   } = useForm<SignInType>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      branch: '04',
+      // branch: '04',
       username: '',
       password: '',
     },
@@ -27,6 +29,20 @@ export function SignIn({ onSubmit }: SignInProps) {
     <View className="w-full p-8">
       <View className="flex flex-col gap-8">
         <View className="flex flex-col gap-3">
+          {errorMessage ? (
+            <Alert
+              className="w-full bg-transparent "
+              icon={AlertTriangle}
+              variant="destructive"
+            >
+              <AlertTitle className="text-destructive">
+                {errorMessage}
+              </AlertTitle>
+              <AlertDescription>
+                Possibly username and password didn&apos;t match.
+              </AlertDescription>
+            </Alert>
+          ) : null}
           <Controller
             control={control}
             name="username"
@@ -84,7 +100,14 @@ export function SignIn({ onSubmit }: SignInProps) {
               })(e);
             }}
           >
-            <Text>Sign in</Text>
+            {isLoading ? (
+              <View className="flex flex-row gap-2">
+                <Text>Signing in...</Text>
+                <ActivityIndicator size="small" />
+              </View>
+            ) : (
+              <Text>Sign in</Text>
+            )}
           </Button>
         </View>
       </View>
