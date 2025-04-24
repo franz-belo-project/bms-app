@@ -20,7 +20,7 @@ export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
   } = useForm<SignInType>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      // branch: '04',
+      branch: '04',
       username: '',
       password: '',
     },
