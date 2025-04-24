@@ -27,7 +27,7 @@ export default function Screen() {
     e?.preventDefault();
 
     try {
-      await signIn(values.username, values.password);
+      await signIn(values.branch, values.username, values.password);
     } catch (err: unknown) {
       if (err instanceof AppError) {
         setErrorMessage(err.message);
