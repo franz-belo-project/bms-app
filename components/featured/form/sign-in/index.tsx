@@ -5,13 +5,18 @@ import { Link } from 'expo-router';
 import { AlertTriangle } from 'lucide-react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { SelectList } from 'react-native-dropdown-select-list';
 import { Text } from '~/components/ui/text';
 import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
+import { BRANCH_CODE } from '~/constant/branch-code';
+import { useBranchPort } from '~/lib/hooks/use-branch-port';
 import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
 import { type SignInProps, signInSchema, type SignInType } from './helper';
 
 export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
+  const [selected, setSelected] = useState('');
+  const { selectedBranch, setSelectedBranch } = useBranchPort();
   const [isVisible, setIsVisible] = useState(false);
   const {
     control,
@@ -20,11 +25,13 @@ export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
   } = useForm<SignInType>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      branch: '04',
+      branch: '',
       username: '',
       password: '',
     },
   });
+
+  console.log('branch', selectedBranch);
 
   return (
     <View className="w-full p-8">
@@ -44,6 +51,42 @@ export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
               </AlertDescription>
             </Alert>
           ) : null}
+          <Controller
+            control={control}
+            name="branch"
+            render={({ field: { onChange, value } }) => (
+              <View className="flex flex-col gap-3">
+                <SelectList
+                  // {...field}
+                  boxStyles={{
+                    borderRadius: 50,
+                    borderColor: '#000',
+                    borderWidth: 1,
+                    backgroundColor: '#fff',
+                  }}
+                  data={BRANCH_CODE}
+                  defaultOption={BRANCH_CODE.find(
+                    (item) => item.value === value,
+                  )}
+                  dropdownShown={false}
+                  placeholder="Select your branch"
+                  save="key"
+                  setSelected={(val: string) => {
+                    setSelectedBranch(val);
+                    onChange(val);
+                  }}
+                  // onSelect={() => selected}
+                  // onSelect={(val) => field.onChange(val)}
+                />
+
+                {errors.branch ? (
+                  <Text className="text-destructive">
+                    {errors.branch.message}
+                  </Text>
+                ) : null}
+              </View>
+            )}
+          />
           <Controller
             control={control}
             name="username"

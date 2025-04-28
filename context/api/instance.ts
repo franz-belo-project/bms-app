@@ -3,7 +3,7 @@ import { API_HOST } from '../endpoint';
 
 export const fetchApi = (port: string) => {
   const fetchApiInstance = axios.create({
-    baseURL: `${API_HOST}:${port}`,
+    baseURL: `${API_HOST}:197${port}`,
     headers: {
       'X-Frame-Options': 'DENY',
       'Content-Security-Policy': "default-src 'self'; frame-ancestors 'none';",
@@ -13,16 +13,38 @@ export const fetchApi = (port: string) => {
   return fetchApiInstance;
 };
 
-export const fetchPrivateApi = (token: string | null, port: string) => {
-  const fetchPrivateApiInstance = axios.create({
-    baseURL: `${API_HOST}:${port}`,
+export const fetchApiPrivate = (port: string, token: string) => {
+  const privateInstance = axios.create({
+    baseURL: `${API_HOST}:197${port}`,
     headers: {
       'X-Frame-Options': 'DENY',
       'Content-Security-Policy': "default-src 'self'; frame-ancestors 'none';",
+      Authorization: `Bearer ${token}`,
     },
   });
 
-  fetchPrivateApiInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+  privateInstance.interceptors.request.use((res) => {
+    return res;
+  });
 
-  return fetchPrivateApiInstance;
+  return privateInstance;
 };
+
+// export const fetchPrivateApi = (token: string, port: string) => {
+//   // const fetchPrivateApiInstance = axios.create({
+//   //   baseURL: `${API_HOST}:${port}`,
+//   //   headers: {
+//   //     'X-Frame-Options': 'DENY',
+//   //     'Content-Security-Policy': "default-src 'self'; frame-ancestors 'none';",
+//   //   },
+//   // });
+
+//   // fetchPrivateInstance(port).defaults.headers.common.Authorization =
+//   //   `Bearer ${token}`;
+
+//   // fetchPrivateInstance(port).interceptors.response.use((res) => {
+//   //   return res;
+//   // });
+
+//   return fetchPrivateInstance;
+// };

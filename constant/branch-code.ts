@@ -1,0 +1,17 @@
+export const BRANCH_CODE = [
+  { key: '01', value: 'Alabang' },
+  { key: '02', value: 'Cebu' },
+  { key: '03', value: 'Greenbelt' },
+  { key: '04', value: 'Greenhills' },
+  { key: '05', value: 'Megamall' },
+  { key: '06', value: 'Tomas Morato' },
+  { key: '07', value: 'Medical Plaza (Nexa)' },
+  { key: '08', value: 'BHS Fort' },
+  { key: '09', value: 'Trinoma' },
+  { key: '11', value: 'Davao' },
+  { key: '12', value: 'The Block' },
+  { key: '15', value: 'Edsa Shangrila' },
+  { key: '22', value: 'S Maison' },
+  { key: '24', value: 'Rockwell' },
+  { key: '26', value: 'Clark' },
+];
