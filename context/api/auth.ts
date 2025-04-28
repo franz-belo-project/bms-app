@@ -14,13 +14,13 @@ type AuthPayload = {
   password: string;
 };
 
-type Token = {
-  token: string | null;
+export type Token = {
+  token: string;
 };
 
-export async function signIn(payload: AuthPayload) {
+export async function signIn(port: string, payload: AuthPayload) {
   try {
-    const response = await fetchApi('19704').post('/api/auth/login', payload);
+    const response = await fetchApi(port).post('/api/auth/login', payload);
 
     return authTokenSchema.parse(response.data);
   } catch (err) {
@@ -35,33 +35,3 @@ export async function signOut({ token }: Token) {
 
   return z.object({}).parse(response.data);
 }
-
-// export const authSampleSchema = z.object({
-//   accessToken: z.string(),
-//   refreshToken: z.string(),
-//   id: z.number(),
-//   username: z.string(),
-//   email: z.string(),
-//   firstName: z.string(),
-//   lastName: z.string(),
-//   gender: z.string(),
-//   image: z.string(),
-// });
-
-// type AuthDumpPayload = {
-//   username: string;
-//   password: string;
-// };
-
-// export async function signInAuthDump(payload: AuthDumpPayload) {
-//   try {
-//     const response = await axios.post(
-//       'https://dummyjson.com/auth/login',
-//       payload,
-//     );
-
-//     return authSampleSchema.parse(response.data);
-//   } catch (error) {
-//     throw handleErrors(error);
-//   }
-// }

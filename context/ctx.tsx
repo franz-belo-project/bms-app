@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 import { useStorageState } from '~/lib/useStorageState';
+import { useBranchPort } from '~/lib/hooks/use-branch-port';
 import { signIn as apiSignIn, signOut as apiSignOut } from './api/auth';
 
 const AuthContext = createContext<
@@ -30,6 +31,7 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
+  const { selectedBranch } = useBranchPort();
   const [[storageLoading, session], setSession] = useStorageState('session');
   const [signInLoading, setSignInLoading] = useState(false);
 
@@ -40,17 +42,25 @@ export function SessionProvider({ children }: PropsWithChildren) {
   ) => {
     setSignInLoading(true);
     try {
-      const { token } = await apiSignIn({ branch, username, password });
+      const { token } = await apiSignIn(selectedBranch, {
+        branch,
+        username,
+        password,
+      });
       setSession(token);
     } finally {
       setSignInLoading(false);
     }
   };
 
-  const handleSignOut = async () => {
-    await apiSignOut({ token: session });
-    setSession(null);
-  };
+  // const handleSignOut = async () => {
+  //   if (session) {
+  //     await apiSignOut({ token: session });
+  //     setSession(null);
+  //   } else {
+  //     throw new Error('Cannot sign out: no active session found');
+  //   }
+  // };
 
   // const handleSignInDump = async (username: string, password: string) => {
   //   // const { token } = await apiSignIn({ branch, username, password });
@@ -68,7 +78,10 @@ export function SessionProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         signIn: handleSignIn,
-        signOut: handleSignOut,
+        // signOut: handleSignOut,
+        signOut: () => {
+          setSession(null);
+        },
         session,
         isLoading: storageLoading || signInLoading,
       }}
