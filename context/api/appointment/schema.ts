@@ -4,7 +4,7 @@ export const appointmentSchema = z.object({
   data: z.array(
     z.object({
       id: z.number().or(z.string()),
-      appointment_date: z.coerce.date().nullable(),
+      appointment_date: z.string().nullable(),
       patient_id: z.string(),
       patient: z.object({
         first_name: z.string().nullable(),
@@ -31,17 +31,17 @@ export const appointmentSchema = z.object({
         name: z.string().nullable(),
         code: z.string().nullable(),
       }),
-      date: z.coerce.date().nullable(),
-      start_at: z.coerce.date().nullable(),
-      end_at: z.coerce.date().nullable(),
-      created_at: z.coerce.date().nullable(),
+      date: z.string().nullable(),
+      start_at: z.string(),
+      end_at: z.string(),
+      created_at: z.string().nullable(),
       appointment_subject: z.string().nullable(),
       appointment_status: z.string().nullable(),
       confirmation_status: z.string().nullable(),
       booked_by: z.string().nullable(),
       appointment_notes: z.string().nullable(),
       updated_by: z.string().nullable(),
-      updated_at: z.coerce.date().nullable(),
+      updated_at: z.string().nullable(),
       break_details: z.string().nullable(),
       procedure: z.object({
         name: z.string().nullable(),
@@ -50,3 +50,5 @@ export const appointmentSchema = z.object({
     }),
   ),
 });
+
+export type AppointmentType = z.infer<typeof appointmentSchema>;
