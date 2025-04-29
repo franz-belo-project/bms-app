@@ -11,9 +11,9 @@ type UpcomingAppointmentParams = {
 };
 
 export async function getUpcomingAppointment(
-  { token }: Token,
+  { token, port }: Token,
   params: UpcomingAppointmentParams,
-  port: string,
+  // port: string,
 ) {
   try {
     const response = await fetchApiPrivate(port, token).get(
@@ -36,9 +36,8 @@ export function useGetUpcomingAppointment(port: string) {
     queryFn: () => {
       if (session) {
         return getUpcomingAppointment(
-          { token: session },
+          { token: session, port },
           { date: toParamsDate(new Date()) },
-          port,
         );
       }
     },

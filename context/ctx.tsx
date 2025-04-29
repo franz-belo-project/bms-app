@@ -6,7 +6,7 @@ import {
 } from 'react';
 import { useStorageState } from '~/lib/useStorageState';
 import { useBranchPort } from '~/lib/hooks/use-branch-port';
-import { signIn as apiSignIn, signOut as apiSignOut } from './api/auth';
+import { signIn as apiSignIn } from './api/auth';
 
 const AuthContext = createContext<
   | {
@@ -52,27 +52,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
       setSignInLoading(false);
     }
   };
-
-  // const handleSignOut = async () => {
-  //   if (session) {
-  //     await apiSignOut({ token: session });
-  //     setSession(null);
-  //   } else {
-  //     throw new Error('Cannot sign out: no active session found');
-  //   }
-  // };
-
-  // const handleSignInDump = async (username: string, password: string) => {
-  //   // const { token } = await apiSignIn({ branch, username, password });
-  //   // setSession(token); // store token
-  //   setSignInLoading(true);
-  //   try {
-  //     const response = await signInAuthDump({ username, password });
-  //     setSession(response.accessToken);
-  //   } finally {
-  //     setSignInLoading(false);
-  //   }
-  // };
 
   return (
     <AuthContext.Provider

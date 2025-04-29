@@ -11,6 +11,7 @@ import { ProfileContent } from '~/components/doctor/profile-content';
 import { Text } from '~/components/ui/text';
 // import { ChangePasswordDialog } from "~/components/featured/dialog/change-password/change-password-dialog";
 import { H2 } from '~/components/ui/typography';
+import { useGetAuthUser } from '~/context/api/user/get-auth-user';
 
 export const data = {
   userName: 'Zach Nugent',
@@ -24,6 +25,10 @@ export const data = {
 };
 
 export default function ProfileScreen() {
+  const { data: user } = useGetAuthUser();
+
+  const userData = user?.data;
+
   return (
     <ImageBackground
       className="justify-start flex-1 bg-center bg-no-repeat bg-cover"
@@ -43,7 +48,7 @@ export default function ProfileScreen() {
             <View className="p-4">
               <H2 className="text-foreground">Account Profile</H2>
             </View>
-            <ProfileContent data={data} />
+            <ProfileContent data={userData} />
           </View>
         </View>
       </ScrollView>
