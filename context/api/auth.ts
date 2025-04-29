@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { handleErrors } from '~/lib/utils/error-handlers';
-import { fetchApi, fetchPrivateApi } from './instance';
+import { fetchApi } from './instance';
 
 export const authTokenSchema = z.object({
   token: z.string(),
@@ -16,6 +16,7 @@ type AuthPayload = {
 
 export type Token = {
   token: string;
+  port: string;
 };
 
 export async function signIn(port: string, payload: AuthPayload) {
@@ -26,12 +27,4 @@ export async function signIn(port: string, payload: AuthPayload) {
   } catch (err) {
     throw handleErrors(err);
   }
-}
-
-export async function signOut({ token }: Token) {
-  const response = await fetchPrivateApi('10704', token).get(
-    '/api/auth/logout',
-  );
-
-  return z.object({}).parse(response.data);
 }

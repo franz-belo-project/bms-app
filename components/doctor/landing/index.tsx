@@ -1,11 +1,14 @@
 import { SafeAreaView, Text, View } from 'react-native';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { H3, H4 } from '~/components/ui/typography';
+import { useGetAuthUser } from '~/context/api/user/get-auth-user';
 import { LandingCard } from './landing-card';
 
 const GITHUB_AVATAR_URI = 'https://github.com/mrzachnugent.png';
 
 export function LandingPage() {
+  const { data: user } = useGetAuthUser();
+
   return (
     <SafeAreaView>
       <View>
@@ -20,7 +23,7 @@ export function LandingPage() {
               </Avatar>
               <View>
                 <H3>Hello</H3>
-                <H4>Doc. Franz</H4>
+                <H4>{user?.data.doctor.name}</H4>
               </View>
             </View>
           </View>
