@@ -1,15 +1,26 @@
 import { handleErrors } from '~/lib/utils/error-handlers';
 import { fetchApiPrivate } from '../instance';
 import { type Token } from '../auth';
+import { userSchema } from '../user/get-auth-user';
 
-export function updatePassword({ port, token }: Token) {
+type UpdatePasswordPayload = {
+  old_password: string;
+  password: string;
+  password_confirmation: string;
+};
+
+export async function putUpdatePassword({
+  port,
+  token,
+  ...payload
+}: Token & UpdatePasswordPayload) {
   try {
     const response = await fetchApiPrivate(port, token).post(
-      '/api/profile/password',
+      '/api/profile/change-password',
       payload,
     );
 
-    return response.data;
+    return userSchema.parse(response.data);
   } catch (error) {
     throw handleErrors(error);
   }

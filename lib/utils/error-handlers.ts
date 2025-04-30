@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 export const apiErrorSchema = z.object({
   message: z.string(),
-  // status_code: z.number(),
+  status_code: z.number(),
 });
 
 export type APIError = z.infer<typeof apiErrorSchema>;
