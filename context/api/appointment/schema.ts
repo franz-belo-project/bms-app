@@ -20,8 +20,8 @@ export const appointmentSchema = z.object({
         name: z.string().nullable(),
       }),
       room: z.object({
-        room_code: z.number().nullable(),
-        number: z.number().nullable(),
+        room_code: z.string().nullable(),
+        number: z.string().nullable(),
       }),
       doctor: z.object({
         name: z.string().nullable(),

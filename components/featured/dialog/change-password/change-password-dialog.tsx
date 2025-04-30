@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type BaseSyntheticEvent } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   Keyboard,
@@ -8,8 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { z } from 'zod';
-// import { z } from "zod";
+import { AlertTriangle } from 'lucide-react-native';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,
@@ -21,31 +20,23 @@ import {
 } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
 import { Text } from '~/components/ui/text';
+import { Checkbox } from '~/components/ui/checkbox';
+import { Label } from '~/components/ui/label';
+import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
+import {
+  type ChangePasswordProps,
+  changePasswordSchema,
+  type ChangePasswordType,
+} from './helper';
 
-export const changePasswordSchema = z
-  .object({
-    currentPassword: z.string().min(1, 'This field is required'),
-    newPassword: z
-      .string()
-      .min(12, 'The password must be at least 12 characters long')
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[\w\W]{12,}$/,
-        'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character',
-      ),
-    confirmPassword: z.string().min(1, 'This field is required'),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: 'Passwords did not match',
-    path: ['confirmPassword'],
-  });
-
-type ChangePasswordType = z.infer<typeof changePasswordSchema>;
-
-export type ChangePasswordProps = {
-  onSubmit: (value: ChangePasswordType, e?: BaseSyntheticEvent) => void;
-};
-
-export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
+export function ChangePasswordDialog({
+  onSubmit,
+  error,
+  errorMessage,
+  open,
+  setOpen,
+}: ChangePasswordProps) {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     control,
     handleSubmit,
@@ -59,18 +50,22 @@ export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
     },
   });
 
+  const onShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <Dialog>
+      <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
         <DialogTrigger asChild>
           <Button className="w-full rounded-3xl" variant="outline">
             <Text>Change Password</Text>
           </Button>
         </DialogTrigger>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <DialogContent>
+          <DialogContent className="flex flex-col gap-8">
             <DialogHeader>
               <DialogTitle>Change Password</DialogTitle>
               <DialogDescription>
@@ -79,6 +74,16 @@ export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
               </DialogDescription>
             </DialogHeader>
             <View className="flex flex-col gap-3">
+              {error ? (
+                <Alert
+                  className="max-w-xl"
+                  icon={AlertTriangle}
+                  variant="destructive"
+                >
+                  <AlertTitle>Error!</AlertTitle>
+                  <AlertDescription>{errorMessage}</AlertDescription>
+                </Alert>
+              ) : null}
               <Controller
                 control={control}
                 name="currentPassword"
@@ -88,7 +93,7 @@ export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
                     <Input
                       {...field}
                       placeholder="Enter your current password"
-                      secureTextEntry
+                      secureTextEntry={!showPassword}
                       value={field.value}
                       onChangeText={(value) => field.onChange(value)}
                     />
@@ -96,6 +101,9 @@ export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
                       <Text className="text-destructive">
                         {errors.currentPassword.message}
                       </Text>
+                    ) : null}
+                    {errorMessage ? (
+                      <Text className="text-destructive">{errorMessage}</Text>
                     ) : null}
                   </View>
                 )}
@@ -109,7 +117,7 @@ export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
                     <Input
                       {...field}
                       placeholder="Enter your new password"
-                      secureTextEntry
+                      secureTextEntry={!showPassword}
                       value={field.value}
                       onChangeText={(value) => field.onChange(value)}
                     />
@@ -130,7 +138,7 @@ export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
                     <Input
                       {...field}
                       placeholder="Enter your confirm password"
-                      secureTextEntry
+                      secureTextEntry={!showPassword}
                       value={field.value}
                       onChangeText={(value) => field.onChange(value)}
                     />
@@ -142,6 +150,14 @@ export function ChangePasswordDialog({ onSubmit }: ChangePasswordProps) {
                   </View>
                 )}
               />
+              <View className="flex flex-row gap-2">
+                <Checkbox
+                  checked={showPassword}
+                  id="password"
+                  onCheckedChange={onShowPassword}
+                />
+                <Label nativeID="password">Show password</Label>
+              </View>
             </View>
             <Button
               onPress={async (e) => {

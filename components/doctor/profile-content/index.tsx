@@ -1,11 +1,19 @@
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { View } from 'react-native';
+import { useCallback, useState } from 'react';
+import { type SubmitHandler } from 'react-hook-form';
+import { Alert, View } from 'react-native';
 import { ChangePasswordDialog } from '~/components/featured/dialog/change-password/change-password-dialog';
+import { type ChangePasswordType } from '~/components/featured/dialog/change-password/helper';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
 import { H3, P } from '~/components/ui/typography';
+import { putUpdatePassword } from '~/context/api/change-password/update-password';
 import { type User } from '~/context/api/user/get-auth-user';
+import { useSession } from '~/context/ctx';
+import { useBranchPort } from '~/lib/hooks/use-branch-port';
+import { AppError } from '~/lib/utils/error-handlers';
 
 const GITHUB_AVATAR_URI = 'https://github.com/mrzachnugent.png';
 
@@ -15,6 +23,47 @@ type ProfileData = {
 
 export function ProfileContent({ data }: ProfileData) {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const { session } = useSession();
+  const { selectedBranch } = useBranchPort();
+  const { mutate: updatePassword } = useMutation({
+    mutationFn: putUpdatePassword,
+  });
+
+  const onSavePassword = useCallback<SubmitHandler<ChangePasswordType>>(
+    (values, e) => {
+      e?.preventDefault();
+
+      if (session) {
+        updatePassword(
+          {
+            token: session,
+            port: selectedBranch,
+            old_password: values.currentPassword,
+            password: values.newPassword,
+            password_confirmation: values.confirmPassword,
+          },
+          {
+            onSuccess: () => {
+              Alert.alert('Successfully!', 'Password has been changed.', [
+                { text: 'OK' },
+              ]);
+              setIsOpen(false);
+            },
+            onError: (error: unknown) => {
+              if (error instanceof AppError) {
+                setErrorMessage(error.message);
+                setIsOpen(true);
+              }
+            },
+          },
+        );
+      }
+    },
+    [session, selectedBranch, updatePassword],
+  );
 
   return (
     <View className="flex flex-col gap-5">
@@ -55,7 +104,12 @@ export function ProfileContent({ data }: ProfileData) {
         <Text>Update Profile</Text>
       </Button>
 
-      <ChangePasswordDialog onSubmit={() => undefined} />
+      <ChangePasswordDialog
+        errorMessage={errorMessage}
+        open={isOpen}
+        setOpen={() => setIsOpen(!isOpen)}
+        onSubmit={onSavePassword}
+      />
     </View>
   );
 }
