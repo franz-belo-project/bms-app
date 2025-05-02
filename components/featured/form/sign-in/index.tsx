@@ -15,8 +15,7 @@ import { Button } from '../../../ui/button';
 import { type SignInProps, signInSchema, type SignInType } from './helper';
 
 export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
-  const [selected, setSelected] = useState('');
-  const { selectedBranch, setSelectedBranch } = useBranchPort();
+  const { setSelectedBranch } = useBranchPort();
   const [isVisible, setIsVisible] = useState(false);
   const {
     control,
@@ -30,8 +29,6 @@ export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
       password: '',
     },
   });
-
-  console.log('branch', selectedBranch);
 
   return (
     <View className="w-full p-8">
