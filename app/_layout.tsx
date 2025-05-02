@@ -13,11 +13,9 @@ import { Platform } from 'react-native';
 import { PortalHost } from '@rn-primitives/portal';
 import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
-// import { ThemeToggle } from '~/components/ThemeToggle';
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
 import { ReactQueryProvider } from '~/components/providers/react-query';
 import { SessionProvider } from '~/context/ctx';
-// import { Footer } from '~/components/featured/footer';
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,

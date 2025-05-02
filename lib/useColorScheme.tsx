@@ -9,8 +9,8 @@ export function useColorScheme() {
   // const systemColorSchema = Appearance.getColorScheme() ?? 'dark';
 
   return {
-    colorScheme: colorScheme ?? 'light',
-    isDarkColorScheme: colorScheme === 'light' ,
+    colorScheme: colorScheme ?? 'dark',
+    isDarkColorScheme: colorScheme === 'dark',
     setColorScheme,
     toggleColorScheme,
   };

@@ -21,7 +21,7 @@ import { toHourTime, toParamsDate } from '~/lib/utils/format-date';
 export function AppointmentContent() {
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState<boolean>(false);
-  const [appointmentDate, setAppointmentDate] = useState('');
+  const [appointmentDate, setAppointmentDate] = useState(toParamsDate(date));
   const { selectedBranch } = useBranchPort();
 
   const { data, refetch } = useGetAppointment(selectedBranch, appointmentDate);
@@ -111,6 +111,8 @@ export function AppointmentContent() {
           </Button>
         </View>
       ) : null}
+
+      {/* {isFetching ? <ActivityIndicator /> : null} */}
 
       {data?.data.length === 0 ? (
         <View className="flex items-center justify-center w-full h-40">
