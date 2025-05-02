@@ -1,7 +1,5 @@
 import { View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { useMemo, useState } from 'react';
-import { type MarkedDates } from 'react-native-calendars/src/types';
 import { useRouter } from 'expo-router';
 import { Text } from '~/components/ui/text';
 
@@ -27,28 +25,12 @@ export const items = {
 
 export function ExploreContent() {
   const router = useRouter();
-  const [selectedDate, setSelectedDate] = useState('');
-
-  const markedDates = useMemo<MarkedDates>(() => {
-    return Object.keys(items).reduce<MarkedDates>((acc, date) => {
-      acc[date] = {
-        marked: true,
-        selected: true,
-        ...(date === selectedDate && {
-          selected: true,
-          selectedColor: 'blue',
-        }),
-      };
-      return acc;
-    }, {});
-  }, [selectedDate]);
 
   const onDayPress = (day: { dateString: string }) => {
     const date = day.dateString;
-    setSelectedDate(date);
 
-    if (date in items) {
-      router.push('./doctor/appointment/');
+    if (date) {
+      router.push(`/doctor/appointment/${date}`);
     }
   };
 
@@ -56,10 +38,10 @@ export function ExploreContent() {
     <View className="flex flex-col gap-4 ">
       <View className="flex flex-row items-center justify-center gap-4">
         {/* <CalendarCheck color='color-primary' height={35} width={35} /> */}
-        <Text className="text-2xl">Monthly Schedule</Text>
+        <Text className="text-2xl">Appointment</Text>
       </View>
       <View className="flex flex-col gap-4">
-        <Calendar markedDates={markedDates} onDayPress={onDayPress} />
+        <Calendar onDayPress={onDayPress} />
       </View>
     </View>
   );

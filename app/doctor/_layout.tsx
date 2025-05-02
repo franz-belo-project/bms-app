@@ -1,15 +1,4 @@
-import '~/global.css';
-
-import {
-  DarkTheme,
-  DefaultTheme,
-  type Theme,
-  ThemeProvider,
-} from '@react-navigation/native';
 import { Redirect, Stack } from 'expo-router';
-// import { StatusBar } from 'expo-status-bar';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Platform } from 'react-native';
 import { DoctorHeader } from '~/components/doctor/header';
 import { useSession } from '~/context/ctx';
 import { Text } from '~/components/ui/text';
@@ -45,7 +34,7 @@ export default function DoctorLayout() {
         options={{ headerShown: true, header: Header }}
       />
       <Stack.Screen
-        name="appointment/index"
+        name="appointment/[date]"
         options={{ headerShown: true, header: Header }}
       />
     </Stack>

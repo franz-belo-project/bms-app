@@ -4,8 +4,8 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import { Card, CardContent, CardHeader } from '~/components/ui/card';
 import { H4 } from '~/components/ui/typography';
 import { dateFormat } from '~/lib/utils/format-date';
+import { UpcomingAppointmentContent } from './upcoming-appointment';
 import { AppointmentContent } from './appointment';
-import { ExploreContent } from './explore';
 
 const patient = [
   { label: '1', value: 'John Doe' },
@@ -30,17 +30,16 @@ export function LandingCard() {
           }}
           data={patient}
           dropdownShown={false}
-          // inputStyles={{ borderRadius: 10, borderColor: "#000", borderWidth: 1, backgroundColor:"#fff"}}
           setSelected={setSelected}
-          // onSelect={(val) => console.log(val)}
           onSelect={() => selected}
         />
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <H4>{dateFormat(new Date())}</H4>
         <View className="flex flex-col gap-4">
+          <UpcomingAppointmentContent />
           <AppointmentContent />
-          <ExploreContent />
+          {/* <ExploreContent /> */}
         </View>
       </CardContent>
     </Card>
