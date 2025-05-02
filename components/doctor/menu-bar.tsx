@@ -1,4 +1,4 @@
-import { EllipsisVertical } from 'lucide-react-native';
+import { CircleEllipsis } from 'lucide-react-native';
 import { Link } from 'expo-router';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useSession } from '~/context/ctx';
@@ -24,7 +24,7 @@ export function MenuBar() {
     <DropdownMenu className="z-10">
       <DropdownMenuTrigger asChild>
         <Button className="w-10 h-10" variant="ghost">
-          <EllipsisVertical className="text-white " color="white" />
+          <CircleEllipsis className="text-white " color="white" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64 native:w-72">
