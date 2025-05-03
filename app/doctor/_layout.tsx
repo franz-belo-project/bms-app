@@ -37,6 +37,10 @@ export default function DoctorLayout() {
         name="appointment/[date]"
         options={{ headerShown: true, header: Header }}
       />
+      <Stack.Screen
+        name="patient-details/[id]"
+        options={{ headerShown: true, header: Header }}
+      />
     </Stack>
   );
 }

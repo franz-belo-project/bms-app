@@ -1,6 +1,7 @@
 import RNDateTimePicker, {
   type DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
+import { useRouter } from 'expo-router';
 import { CircleHelp } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { Platform, TouchableOpacity, View } from 'react-native';
@@ -19,6 +20,7 @@ import { useBranchPort } from '~/lib/hooks/use-branch-port';
 import { toHourTime, toParamsDate } from '~/lib/utils/format-date';
 
 export function AppointmentContent() {
+  const router = useRouter();
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [appointmentDate, setAppointmentDate] = useState(toParamsDate(date));
@@ -121,7 +123,7 @@ export function AppointmentContent() {
       ) : (
         <Accordion className="w-full max-w-sm native:max-w-md" type="single">
           {data?.data.map((dta) => (
-            <AccordionItem key={dta.id} value={dta.id as string}>
+            <AccordionItem key={dta.id} value={dta.id}>
               <AccordionTrigger>
                 <View>
                   <Text>{dta.procedure.name}</Text>
@@ -129,21 +131,41 @@ export function AppointmentContent() {
               </AccordionTrigger>
               <AccordionContent>
                 <View>
-                  <Text>
+                  <Text className="text-muted-foreground/80">
                     Patient: {dta.patient.first_name} {dta.patient.middle_name}{' '}
                     {dta.patient.last_name}
                   </Text>
-                  <Text>Contact: {dta.patient.contact_number}</Text>
-                  <Text>Machine: {dta.machine.name}</Text>
-                  <Text>Room: {dta.room.number}</Text>
-                  <Text>Aesthetician: {dta.aesthetician.name}</Text>
-                  <Text>Start: {toHourTime(dta.start_at)}</Text>
-                  <Text>End: {toHourTime(dta.end_at)}</Text>
+                  <Text className="text-muted-foreground/80">
+                    Contact: {dta.patient.contact_number}
+                  </Text>
+                  <Text className="text-muted-foreground/80">
+                    Machine: {dta.machine.name}
+                  </Text>
+                  <Text className="text-muted-foreground/80">
+                    Room: {dta.room.number}
+                  </Text>
+                  <Text className="text-muted-foreground/80">
+                    Aesthetician: {dta.aesthetician.name}
+                  </Text>
+                  <Text className="text-muted-foreground/80">
+                    Start: {toHourTime(dta.start_at)}
+                  </Text>
+                  <Text className="text-muted-foreground/80">
+                    End: {toHourTime(dta.end_at)}
+                  </Text>
                   <Button
-                    className="self-start mt-4 rounded-3xl bg-primary"
+                    className="self-start mt-4 rounded-3xl text-primary"
                     size="sm"
+                    variant="link"
+                    onPress={() =>
+                      // router.push(`./doctor/patient-details/${dta.id}`)
+                      router.push({
+                        pathname: `./doctor/patient-details/${dta.id}`,
+                        params: { date: dta.appointment_date },
+                      })
+                    }
                   >
-                    <Text className="text-accent">View details...</Text>
+                    <Text className="text-primary">View details...</Text>
                   </Button>
                 </View>
               </AccordionContent>
