@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const appointmentSchema = z.object({
   data: z.array(
     z.object({
-      id: z.number().or(z.string()),
+      id: z.string(),
       appointment_date: z.string().nullable(),
       patient_id: z.string(),
       patient: z.object({
