@@ -4,7 +4,14 @@ import RNDateTimePicker, {
 import { useRouter } from 'expo-router';
 import { CircleHelp } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  type ImageSourcePropType,
+  Platform,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { noDataFound } from '~/assets';
 import {
   Accordion,
   AccordionContent,
@@ -117,8 +124,14 @@ export function AppointmentContent() {
       {/* {isFetching ? <ActivityIndicator /> : null} */}
 
       {data?.data.length === 0 ? (
-        <View className="flex items-center justify-center w-full h-40">
-          <Text>No appointment data</Text>
+        <View className="flex items-center justify-center p-10 border-0 bg-primary-foreground">
+          <Image
+            className="w-20 h-20"
+            source={noDataFound as ImageSourcePropType}
+          />
+          <Text className=" text-muted-foreground">
+            No appointment details to shown.
+          </Text>
         </View>
       ) : (
         <Accordion className="w-full max-w-sm native:max-w-md" type="single">

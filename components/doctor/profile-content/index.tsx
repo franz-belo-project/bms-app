@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { type SubmitHandler } from 'react-hook-form';
 import { Alert, View } from 'react-native';
@@ -22,7 +21,6 @@ type ProfileData = {
 };
 
 export function ProfileContent({ data }: ProfileData) {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -99,7 +97,14 @@ export function ProfileContent({ data }: ProfileData) {
       </View>
       <Button
         className="w-full rounded-3xl "
-        onPress={() => router.push('/doctor/profile/profile-update')}
+        // onPress={() => router.push('/doctor/profile/profile-update')}
+        onPress={() => {
+          Alert.alert(
+            'Profile update!',
+            'Sorry this feature is not ready yet.',
+            [{ text: 'OK' }],
+          );
+        }}
       >
         <Text>Update Profile</Text>
       </Button>
