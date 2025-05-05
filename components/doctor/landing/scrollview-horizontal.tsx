@@ -1,5 +1,7 @@
+import { useRouter } from 'expo-router';
 import { Clock4 } from 'lucide-react-native';
 import { ScrollView, View } from 'react-native';
+import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { Text } from '~/components/ui/text';
 import { type AppointmentType } from '~/context/api/appointment/schema';
@@ -9,28 +11,8 @@ type ScrollViewContentProps = {
   data?: AppointmentType;
 };
 
-// const convertTo24Hour = (time: string) => {
-//   const [hourMinute, period] = time.split(' ');
-
-//   const [hour, minute] = hourMinute.split(':').map(Number);
-
-//   let adjustedHour = hour;
-
-//   if (period === 'AM' && adjustedHour === 12) {
-//     adjustedHour = 0;
-//   } else if (period === 'PM' && adjustedHour !== 12) {
-//     adjustedHour += 12;
-//   }
-
-//   return `${adjustedHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-// };
-
 export function ScrollViewContentHorizontal({ data }: ScrollViewContentProps) {
-  // const sortedData = [...data].sort((a, b) => {
-  //   const timeA = convertTo24Hour(a.time);
-  //   const timeB = convertTo24Hour(b.time);
-  //   return timeA.localeCompare(timeB);
-  // });
+  const router = useRouter();
 
   return (
     <View className="mh">
@@ -55,6 +37,20 @@ export function ScrollViewContentHorizontal({ data }: ScrollViewContentProps) {
               </Text>
               <Text>{dta.procedure.name}</Text>
             </View>
+            <Button
+              className="self-start mt-4 rounded-3xl text-primary"
+              size="sm"
+              variant="link"
+              onPress={() =>
+                // router.push(`./doctor/patient-details/${dta.id}`)
+                router.push({
+                  pathname: `./doctor/patient-details/${dta.id}`,
+                  params: { date: dta.appointment_date },
+                })
+              }
+            >
+              <Text className="text-primary">View details...</Text>
+            </Button>
             <View className="flex flex-row items-center justify-center gap-2 p-2 text-center rounded-b-md bg-primary/90">
               <Clock4 color="#fff" height={20} width={20} />
               <Text className="text-primary-foreground">
