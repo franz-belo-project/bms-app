@@ -1,6 +1,7 @@
-import { CircleEllipsis } from 'lucide-react-native';
+import { CircleEllipsis, CircleUser, LogOut } from 'lucide-react-native';
 import { Link } from 'expo-router';
-import Animated, { FadeIn } from 'react-native-reanimated';
+// import Animated, { FadeIn } from 'react-native-reanimated';
+import { View } from 'react-native';
 import { useSession } from '~/context/ctx';
 import { Button } from '../ui/button';
 import {
@@ -10,9 +11,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
+  // DropdownMenuSub,
+  // DropdownMenuSubContent,
+  // DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { Text } from '../ui/text';
@@ -28,15 +29,20 @@ export function MenuBar() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64 native:w-72">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          <Text>My Account</Text>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link className="w-full" href="/doctor/profile">
-              <Text>Profile</Text>
+            <Link className="w-full " href="/doctor/profile">
+              <View className="flex flex-row items-center justify-start w-full gap-2">
+                <CircleUser color="#000" size={20} />
+                <Text className="text-muted-foreground">Profile</Text>
+              </View>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuSub>
+          {/* <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <Text className="text-foreground">Settings</Text>
             </DropdownMenuSubTrigger>
@@ -52,11 +58,14 @@ export function MenuBar() {
                 </DropdownMenuItem>
               </Animated.View>
             </DropdownMenuSubContent>
-          </DropdownMenuSub>
+          </DropdownMenuSub> */}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuSeparator /> */}
         <DropdownMenuItem onPress={() => signOut()}>
-          <Text>Log out</Text>
+          <View className="flex flex-row items-center justify-start w-full gap-2">
+            <LogOut color="#000" size={20} />
+            <Text className="text-muted-foreground">Log out</Text>
+          </View>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

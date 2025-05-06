@@ -1,12 +1,12 @@
 import { Link } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 import {
-  ImageBackground,
-  type ImageSourcePropType,
+  // ImageBackground,
+  // type ImageSourcePropType,
   ScrollView,
   View,
 } from 'react-native';
-import { bmsBg } from '~/assets';
+// import { bmsBg } from '~/assets';
 import { ProfileContent } from '~/components/doctor/profile-content';
 import { Text } from '~/components/ui/text';
 // import { ChangePasswordDialog } from "~/components/featured/dialog/change-password/change-password-dialog";
@@ -30,28 +30,28 @@ export default function ProfileScreen() {
   const userData = user?.data;
 
   return (
-    <ImageBackground
-      className="justify-start flex-1 bg-center bg-no-repeat bg-cover"
-      source={bmsBg as ImageSourcePropType}
-    >
-      <ScrollView className="flex-1">
-        <View className="flex flex-col justify-start gap-8 p-4">
-          <View className="flex flex-row items-center gap-2">
-            <ChevronLeft color="#000" />
-            <Link href="/doctor">
-              <Text>Home</Text>
-            </Link>
-            <ChevronLeft color="#000" />
-            <Text className="text-secondary">Profile</Text>
-          </View>
-          <View className="flex flex-col gap-2 p-4 ">
-            <View className="p-4">
-              <H2 className="text-foreground">Account Profile</H2>
-            </View>
-            <ProfileContent data={userData} />
-          </View>
+    // <ImageBackground
+    //   className="justify-start flex-1 bg-center bg-no-repeat bg-cover"
+    //   source={bmsBg as ImageSourcePropType}
+    // >
+    <ScrollView className="flex-1">
+      <View className="flex flex-col justify-start gap-8 p-4">
+        <View className="flex flex-row items-center gap-2">
+          <ChevronLeft color="#000" />
+          <Link href="/doctor">
+            <Text>Home</Text>
+          </Link>
+          <ChevronLeft color="#000" />
+          <Text className="text-secondary">Profile</Text>
         </View>
-      </ScrollView>
-    </ImageBackground>
+        <View className="flex flex-col gap-2 p-4 ">
+          <View className="p-4">
+            <H2 className="text-foreground">Account Profile</H2>
+          </View>
+          <ProfileContent data={userData} />
+        </View>
+      </View>
+    </ScrollView>
+    // </ImageBackground>
   );
 }
