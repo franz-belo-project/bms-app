@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
-import { Link } from 'expo-router';
+// import { Link } from 'expo-router';
 import { AlertTriangle } from 'lucide-react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
@@ -140,9 +140,9 @@ export function SignIn({ onSubmit, isLoading, errorMessage }: SignInProps) {
               </View>
             )}
           />
-          <Link asChild className="flex self-end" href="/forgot-password">
+          {/* <Link asChild className="flex self-end" href="/forgot-password">
             <Text>Forgot password?</Text>
-          </Link>
+          </Link> */}
         </View>
         <View>
           <Button

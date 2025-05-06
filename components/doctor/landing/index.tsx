@@ -22,7 +22,7 @@ export function LandingPage() {
         <View className="container">
           <View className="flex justify-start p-4">
             <View className="flex flex-row items-center gap-4">
-              <Avatar alt="Zach Nugent's Avatar" className="w-24 h-24">
+              <Avatar alt="Avatar" className="w-24 h-24">
                 <AvatarImage source={undefined} />
                 <AvatarFallback>
                   <Text>{initials}</Text>

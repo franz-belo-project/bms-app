@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { type SubmitHandler } from 'react-hook-form';
-import { Alert, View } from 'react-native';
+import { Alert, type ImageURISource, View } from 'react-native';
 import { ChangePasswordDialog } from '~/components/featured/dialog/change-password/change-password-dialog';
 import { type ChangePasswordType } from '~/components/featured/dialog/change-password/helper';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
@@ -13,8 +13,6 @@ import { type User } from '~/context/api/user/get-auth-user';
 import { useSession } from '~/context/ctx';
 import { useBranchPort } from '~/lib/hooks/use-branch-port';
 import { AppError } from '~/lib/utils/error-handlers';
-
-const GITHUB_AVATAR_URI = 'https://github.com/mrzachnugent.png';
 
 type ProfileData = {
   data?: User['data'];
@@ -63,17 +61,27 @@ export function ProfileContent({ data }: ProfileData) {
     [session, selectedBranch, updatePassword],
   );
 
+  const nameFallback = `${data?.firstname} ${data?.lastname}}`;
+
+  const initials = nameFallback
+    .trim()
+    .split(' ')
+    .filter(Boolean)
+    .map((word, index) => (index === 0 ? word[0].toUpperCase() : '')) // Only take the first letter of the first name
+    .join('');
+
   return (
     <View className="flex flex-col gap-5">
       <View className="flex flex-col gap-1">
         <View>
-          <Avatar alt="Zach Nugent's Avatar" className="w-40 h-40">
+          <Avatar alt="Avatar" className="w-32 h-32">
             <AvatarImage
-              className="w-50 h-50"
-              source={{ uri: GITHUB_AVATAR_URI }}
+              source={
+                data?.avatar ? (data.avatar as ImageURISource) : undefined
+              }
             />
             <AvatarFallback>
-              <Text>ZN</Text>
+              <Text>{initials}</Text>
             </AvatarFallback>
           </Avatar>
         </View>
