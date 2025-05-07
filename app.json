@@ -22,7 +22,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.franzbrnrdn.bmsapp"
     },
@@ -40,14 +41,16 @@
         "origin": false
       },
       "eas": {
-        "projectId": "1b393139-4123-47ed-98c9-e0d43c27779b"
+
+        "projectId": "decbbfa5-a1fb-4cb1-8183-8aa9ea571d95"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/1b393139-4123-47ed-98c9-e0d43c27779b"
+
+      "url": "https://u.expo.dev/decbbfa5-a1fb-4cb1-8183-8aa9ea571d95"
     }
   }
 }
