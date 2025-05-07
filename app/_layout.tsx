@@ -1,30 +1,30 @@
 import '~/global.css';
 
-import {
-  DarkTheme,
-  DefaultTheme,
-  type Theme,
-  ThemeProvider,
-} from '@react-navigation/native';
+// import {
+//   DarkTheme,
+//   DefaultTheme,
+//   type Theme,
+//   ThemeProvider,
+// } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { PortalHost } from '@rn-primitives/portal';
-import { NAV_THEME } from '~/lib/constants';
+// import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
 import { ReactQueryProvider } from '~/components/providers/react-query';
 import { SessionProvider } from '~/context/ctx';
 
-const LIGHT_THEME: Theme = {
-  ...DefaultTheme,
-  colors: NAV_THEME.light,
-};
-const DARK_THEME: Theme = {
-  ...DarkTheme,
-  colors: NAV_THEME.dark,
-};
+// const LIGHT_THEME: Theme = {
+//   ...DefaultTheme,
+//   colors: NAV_THEME.light,
+// };
+// const DARK_THEME: Theme = {
+//   ...DarkTheme,
+//   colors: NAV_THEME.dark,
+// };
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,28 +56,28 @@ export default function RootLayout() {
 
   return (
     <SessionProvider>
-      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <ReactQueryProvider>
-          <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-          <Stack screenOptions={{ headerShown: false, gestureEnabled: false }}>
-            <Stack.Screen
-              name="index"
-              options={{
-                title: 'Belo Medical Group',
-                headerShown: true,
-              }}
-            />
-            <Stack.Screen
-              name="forgot-password"
-              options={{
-                title: 'Forgot password',
-                headerShown: true,
-              }}
-            />
-          </Stack>
-          <PortalHost />
-        </ReactQueryProvider>
-      </ThemeProvider>
+      {/* <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}> */}
+      <ReactQueryProvider>
+        <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+        <Stack screenOptions={{ headerShown: false, gestureEnabled: false }}>
+          <Stack.Screen
+            name="index"
+            options={{
+              title: 'Belo Medical Group',
+              headerShown: true,
+            }}
+          />
+          <Stack.Screen
+            name="forgot-password"
+            options={{
+              title: 'Forgot password',
+              headerShown: true,
+            }}
+          />
+        </Stack>
+        <PortalHost />
+      </ReactQueryProvider>
+      {/* </ThemeProvider> */}
     </SessionProvider>
   );
 }
