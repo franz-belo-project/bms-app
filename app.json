@@ -4,12 +4,12 @@
     "slug": "bms-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/belo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/belo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -24,14 +24,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/images/belo_logo_white.png"
+      },
+      "package": "com.franzbrnrdn.bmsapp"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/belo.png"
     },
     "plugins": [
       "expo-router",
@@ -40,6 +40,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "1b393139-4123-47ed-98c9-e0d43c27779b"
+      }
     }
   }
 }
