@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { CircleHelp } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Image,
   type ImageSourcePropType,
   Platform,
@@ -33,7 +34,10 @@ export function AppointmentContent() {
   const [appointmentDate, setAppointmentDate] = useState(toParamsDate(date));
   const { selectedBranch } = useBranchPort();
 
-  const { data, refetch } = useGetAppointment(selectedBranch, appointmentDate);
+  const { data, refetch, isFetching } = useGetAppointment(
+    selectedBranch,
+    appointmentDate,
+  );
 
   const toggleDatePicker = () => {
     setShowPicker(!showPicker);
@@ -125,66 +129,81 @@ export function AppointmentContent() {
 
       {data?.data.length === 0 ? (
         <View className="flex items-center justify-center p-10 border-0 bg-primary-foreground">
-          <Image
-            className="w-20 h-20"
-            source={noDataFound as ImageSourcePropType}
-          />
-          <Text className=" text-muted-foreground">
-            No appointment details to shown.
-          </Text>
+          {isFetching ? (
+            <ActivityIndicator />
+          ) : (
+            <>
+              <Image
+                className="w-20 h-20"
+                source={noDataFound as ImageSourcePropType}
+              />
+              <Text className=" text-muted-foreground">
+                No appointment details to shown.
+              </Text>
+            </>
+          )}
         </View>
       ) : (
-        <Accordion className="w-full max-w-sm native:max-w-md" type="single">
-          {data?.data.map((dta) => (
-            <AccordionItem key={dta.id} value={dta.id}>
-              <AccordionTrigger>
-                <View>
-                  <Text>{dta.procedure.name}</Text>
-                </View>
-              </AccordionTrigger>
-              <AccordionContent>
-                <View>
-                  <Text className="text-muted-foreground/80">
-                    Patient: {dta.patient.first_name} {dta.patient.middle_name}{' '}
-                    {dta.patient.last_name}
-                  </Text>
-                  <Text className="text-muted-foreground/80">
-                    Contact: {dta.patient.contact_number}
-                  </Text>
-                  <Text className="text-muted-foreground/80">
-                    Machine: {dta.machine.name}
-                  </Text>
-                  <Text className="text-muted-foreground/80">
-                    Room: {dta.room.number}
-                  </Text>
-                  <Text className="text-muted-foreground/80">
-                    Aesthetician: {dta.aesthetician.name}
-                  </Text>
-                  <Text className="text-muted-foreground/80">
-                    Start: {toHourTime(dta.start_at)}
-                  </Text>
-                  <Text className="text-muted-foreground/80">
-                    End: {toHourTime(dta.end_at)}
-                  </Text>
-                  <Button
-                    className="self-start mt-4 rounded-3xl text-primary"
-                    size="sm"
-                    variant="link"
-                    onPress={() =>
-                      // router.push(`./doctor/patient-details/${dta.id}`)
-                      router.push({
-                        pathname: `./doctor/patient-details/${dta.id}`,
-                        params: { date: dta.appointment_date },
-                      })
-                    }
-                  >
-                    <Text className="text-primary">View details...</Text>
-                  </Button>
-                </View>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <>
+          {isFetching ? (
+            <ActivityIndicator />
+          ) : (
+            <Accordion
+              className="w-full max-w-sm native:max-w-md"
+              type="single"
+            >
+              {data?.data.map((dta) => (
+                <AccordionItem key={dta.id} value={dta.id}>
+                  <AccordionTrigger>
+                    <View>
+                      <Text>{dta.procedure.name}</Text>
+                    </View>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <View>
+                      <Text className="text-muted-foreground/80">
+                        Patient: {dta.patient.first_name}{' '}
+                        {dta.patient.middle_name} {dta.patient.last_name}
+                      </Text>
+                      <Text className="text-muted-foreground/80">
+                        Contact: {dta.patient.contact_number}
+                      </Text>
+                      <Text className="text-muted-foreground/80">
+                        Machine: {dta.machine.name}
+                      </Text>
+                      <Text className="text-muted-foreground/80">
+                        Room: {dta.room.number}
+                      </Text>
+                      <Text className="text-muted-foreground/80">
+                        Aesthetician: {dta.aesthetician.name}
+                      </Text>
+                      <Text className="text-muted-foreground/80">
+                        Start: {toHourTime(dta.start_at)}
+                      </Text>
+                      <Text className="text-muted-foreground/80">
+                        End: {toHourTime(dta.end_at)}
+                      </Text>
+                      <Button
+                        className="self-start mt-4 rounded-3xl text-primary"
+                        size="sm"
+                        variant="link"
+                        onPress={() =>
+                          // router.push(`./doctor/patient-details/${dta.id}`)
+                          router.push({
+                            pathname: `./doctor/patient-details/${dta.id}`,
+                            params: { date: dta.appointment_date },
+                          })
+                        }
+                      >
+                        <Text className="text-primary">View details...</Text>
+                      </Button>
+                    </View>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
+        </>
       )}
     </View>
   );
