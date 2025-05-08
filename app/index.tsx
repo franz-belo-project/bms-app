@@ -6,13 +6,13 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  ImageBackground,
+  // ImageBackground,
   type ImageSourcePropType,
   ScrollView,
 } from 'react-native';
 import { type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
-import { beloLogo, bmsBg } from '~/assets';
+import { beloLogo } from '~/assets';
 import { SignIn } from '~/components/featured/form/sign-in';
 import { Text } from '~/components/ui/text';
 import { type SignInType } from '~/components/featured/form/sign-in/helper';
@@ -48,34 +48,34 @@ export default function Screen() {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View className="h-full">
-          <ImageBackground
+          {/* <ImageBackground
             className="justify-center flex-1 bg-center bg-no-repeat bg-cover"
             source={bmsBg as ImageSourcePropType}
-          >
-            <ScrollView>
-              <View className="flex flex-col items-center h-full p-2 justify-evenly ">
-                <Image
-                  className="self-center h-36 w-72 "
-                  source={beloLogo as ImageSourcePropType}
-                />
-                <Text className="flex text-4xl font-bold text-center ">
-                  The No. 1 Aesthetic Clinic in the Philippines
-                </Text>
-                <SignIn
-                  errorMessage={errorMessage}
-                  isLoading={isLoading}
-                  onSubmit={onLoginPress}
-                />
-                <Text
-                  className="flex text-2xl font-medium text-center text-muted-foreground "
-                  style={{ fontFamily: 'Poppins-Regular' }}
-                >
-                  © {new Date().getFullYear()} Belo Medical Group BMS. All
-                  Rights Reserved. Powered by ICT.
-                </Text>
-              </View>
-            </ScrollView>
-          </ImageBackground>
+          > */}
+          <ScrollView className="bg-primary-foreground">
+            <View className="flex flex-col items-center h-full p-2 justify-evenly ">
+              <Image
+                className="self-center h-36 w-72 "
+                source={beloLogo as ImageSourcePropType}
+              />
+              <Text className="flex text-4xl font-bold text-center ">
+                The No. 1 Aesthetic Clinic in the Philippines
+              </Text>
+              <SignIn
+                errorMessage={errorMessage}
+                isLoading={isLoading}
+                onSubmit={onLoginPress}
+              />
+              <Text
+                className="flex text-2xl font-medium text-center text-muted-foreground "
+                style={{ fontFamily: 'Poppins-Regular' }}
+              >
+                © {new Date().getFullYear()} Belo Medical Group BMS. All Rights
+                Reserved. Powered by ICT.
+              </Text>
+            </View>
+          </ScrollView>
+          {/* </ImageBackground> */}
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
