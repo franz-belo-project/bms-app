@@ -16,6 +16,7 @@ import { useColorScheme } from '~/lib/useColorScheme';
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
 import { ReactQueryProvider } from '~/components/providers/react-query';
 import { SessionProvider } from '~/context/ctx';
+import { ThemeToggle as ThemeButton } from '~/components/ThemeToggle';
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -65,6 +66,7 @@ export default function RootLayout() {
               options={{
                 title: 'Belo Medical Group',
                 headerShown: true,
+                headerRight: ThemeToggle,
               }}
             />
             <Stack.Screen
@@ -80,6 +82,10 @@ export default function RootLayout() {
       </ThemeProvider>
     </SessionProvider>
   );
+}
+
+function ThemeToggle() {
+  return <ThemeButton />;
 }
 
 const useIsomorphicLayoutEffect =
