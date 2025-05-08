@@ -1,15 +1,8 @@
 import { Link } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
-import {
-  // ImageBackground,
-  // type ImageSourcePropType,
-  ScrollView,
-  View,
-} from 'react-native';
-// import { bmsBg } from '~/assets';
+import { ScrollView, View } from 'react-native';
 import { ProfileContent } from '~/components/doctor/profile-content';
 import { Text } from '~/components/ui/text';
-// import { ChangePasswordDialog } from "~/components/featured/dialog/change-password/change-password-dialog";
 import { H2 } from '~/components/ui/typography';
 import { useGetAuthUser } from '~/context/api/user/get-auth-user';
 
@@ -30,11 +23,7 @@ export default function ProfileScreen() {
   const userData = user?.data;
 
   return (
-    // <ImageBackground
-    //   className="justify-start flex-1 bg-center bg-no-repeat bg-cover"
-    //   source={bmsBg as ImageSourcePropType}
-    // >
-    <ScrollView className="flex-1">
+    <ScrollView className="flex-1 bg-primary-foreground">
       <View className="flex flex-col justify-start gap-8 p-4">
         <View className="flex flex-row items-center gap-2">
           <ChevronLeft color="#000" />
@@ -52,6 +41,5 @@ export default function ProfileScreen() {
         </View>
       </View>
     </ScrollView>
-    // </ImageBackground>
   );
 }
