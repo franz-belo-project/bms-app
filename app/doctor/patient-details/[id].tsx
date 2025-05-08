@@ -43,7 +43,7 @@ export default function PatientDetailsScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{ flex: 1 }}
     >
-      <ScrollView className="flex-1 bg-transparent">
+      <ScrollView className="flex-1 bg-primary-foreground">
         <View className="flex flex-col justify-start gap-8 p-4">
           <View className="flex flex-row items-center gap-2">
             <ChevronLeft color="#000" />
