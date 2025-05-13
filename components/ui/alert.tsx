@@ -18,7 +18,7 @@ const alertVariants = cva(
     defaultVariants: {
       variant: 'default',
     },
-  }
+  },
 );
 
 const Alert = React.forwardRef<
@@ -29,20 +29,40 @@ const Alert = React.forwardRef<
       iconSize?: number;
       iconClassName?: string;
     }
->(({ className, variant, children, icon: Icon, iconSize = 16, iconClassName, ...props }, ref) => {
-  const { colors } = useTheme();
-  return (
-    <View ref={ref} role='alert' className={alertVariants({ variant, className })} {...props}>
-      <View className='absolute left-3.5 top-4 -translate-y-0.5'>
-        <Icon
-          size={iconSize}
-          color={variant === 'destructive' ? colors.notification : colors.text}
-        />
+>(
+  (
+    {
+      className,
+      variant,
+      children,
+      icon: Icon,
+      iconSize = 16,
+      // iconClassName,
+      ...props
+    },
+    ref,
+  ) => {
+    const { colors } = useTheme();
+    return (
+      <View
+        className={alertVariants({ variant, className })}
+        ref={ref}
+        role="alert"
+        {...props}
+      >
+        <View className="absolute left-3.5 top-4 -translate-y-0.5">
+          <Icon
+            color={
+              variant === 'destructive' ? colors.notification : colors.text
+            }
+            size={iconSize}
+          />
+        </View>
+        {children}
       </View>
-      {children}
-    </View>
-  );
-});
+    );
+  },
+);
 Alert.displayName = 'Alert';
 
 const AlertTitle = React.forwardRef<
@@ -50,11 +70,11 @@ const AlertTitle = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Text>
 >(({ className, ...props }, ref) => (
   <Text
-    ref={ref}
     className={cn(
       'pl-7 mb-1 font-medium text-base leading-none tracking-tight text-foreground',
-      className
+      className,
     )}
+    ref={ref}
     {...props}
   />
 ));
@@ -65,8 +85,8 @@ const AlertDescription = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Text>
 >(({ className, ...props }, ref) => (
   <Text
-    ref={ref}
     className={cn('pl-7 text-sm leading-relaxed text-foreground', className)}
+    ref={ref}
     {...props}
   />
 ));

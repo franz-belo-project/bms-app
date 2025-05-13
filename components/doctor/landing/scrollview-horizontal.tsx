@@ -37,25 +37,27 @@ export function ScrollViewContentHorizontal({ data }: ScrollViewContentProps) {
               </Text>
               <Text>{dta.procedure.name}</Text>
             </View>
-            <Button
-              className="self-start mt-4 rounded-3xl text-primary"
-              size="sm"
-              variant="link"
-              onPress={() =>
-                // router.push(`./doctor/patient-details/${dta.id}`)
-                router.push({
-                  pathname: `./doctor/patient-details/${dta.id}`,
-                  params: { date: dta.appointment_date },
-                })
-              }
-            >
-              <Text className="text-primary">View details...</Text>
-            </Button>
-            <View className="flex flex-row items-center justify-center gap-2 p-2 text-center rounded-b-md bg-primary/90">
-              <Clock4 color="#fff" height={20} width={20} />
-              <Text className="text-primary-foreground">
-                {toHourTime(dta.start_at)}
-              </Text>
+            <View>
+              <Button
+                className="self-start mt-4 rounded-3xl text-primary"
+                size="sm"
+                variant="link"
+                onPress={() =>
+                  // router.push(`./doctor/patient-details/${dta.id}`)
+                  router.push({
+                    pathname: `./doctor/patient-details/${dta.id}`,
+                    params: { date: dta.appointment_date },
+                  })
+                }
+              >
+                <Text className="text-primary">View details...</Text>
+              </Button>
+              <View className="flex flex-row items-center justify-center gap-2 p-2 text-center rounded-b-md bg-primary/90">
+                <Clock4 color="#fff" height={20} width={20} />
+                <Text className="text-primary-foreground">
+                  {toHourTime(dta.start_at)}
+                </Text>
+              </View>
             </View>
           </Card>
         ))}
