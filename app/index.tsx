@@ -48,9 +48,9 @@ export default function Screen() {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View className="h-full">
           <ScrollView className="bg-primary-foreground">
-            <View className="flex flex-col items-center h-full p-2 justify-evenly ">
+            <View className="flex flex-col items-center h-full gap-2 p-2 justify-evenly ">
               <Image
-                className="self-center h-36 w-72 "
+                className="self-center w-64 h-32 "
                 source={beloLogo as ImageSourcePropType}
               />
               <Text className="flex text-4xl font-bold text-center ">
