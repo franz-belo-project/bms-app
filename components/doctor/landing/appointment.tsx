@@ -144,7 +144,9 @@ export function AppointmentContent() {
       ) : (
         <>
           {isFetching ? (
-            <ActivityIndicator />
+            <View className="flex items-center justify-center h-20 p-4 border-0 bg-primary-foreground">
+              <ActivityIndicator />
+            </View>
           ) : (
             <Accordion
               className="w-full max-w-sm native:max-w-md"

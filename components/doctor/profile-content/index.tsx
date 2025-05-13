@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { type SubmitHandler } from 'react-hook-form';
 import { Alert, type ImageURISource, View } from 'react-native';
+import { avatarIcon } from '~/assets';
 import { ChangePasswordDialog } from '~/components/featured/dialog/change-password/change-password-dialog';
 import { type ChangePasswordType } from '~/components/featured/dialog/change-password/helper';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
@@ -77,7 +78,9 @@ export function ProfileContent({ data }: ProfileData) {
           <Avatar alt="Avatar" className="w-32 h-32">
             <AvatarImage
               source={
-                data?.avatar ? (data.avatar as ImageURISource) : undefined
+                data?.avatar
+                  ? (data.avatar as ImageURISource)
+                  : (avatarIcon as ImageURISource)
               }
             />
             <AvatarFallback>

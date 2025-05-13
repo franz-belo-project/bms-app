@@ -1,6 +1,8 @@
 import { Link, useLocalSearchParams } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 import {
+  type ImageSourcePropType,
+
   // ImageBackground,
   // type ImageSourcePropType,
   KeyboardAvoidingView,
@@ -8,6 +10,7 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import { avatarIcon } from '~/assets';
 // import { bmsBg } from '~/assets';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Text } from '~/components/ui/text';
@@ -64,7 +67,7 @@ export default function PatientDetailsScreen() {
                     source={
                       patientDate?.patient.avatar
                         ? { uri: patientDate.patient.avatar }
-                        : undefined
+                        : (avatarIcon as ImageSourcePropType)
                     }
                   />
                   <AvatarFallback>
