@@ -53,6 +53,10 @@ export function SessionProvider({ children }: PropsWithChildren) {
     }
   };
 
+  // if (session) {
+  //   return null;
+  // }
+
   return (
     <AuthContext.Provider
       value={{

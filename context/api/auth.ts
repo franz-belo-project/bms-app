@@ -29,20 +29,9 @@ export async function signIn(port: string, payload: AuthPayload) {
   }
 }
 
-type SessionPayload = {
-  setSession: () => void;
-};
-
-export async function signOut({
-  port,
-  token,
-  setSession,
-}: Token & SessionPayload) {
+export function signOut({ port, token }: Token) {
   try {
-    const response = await fetchApiPrivate(port, token).get('/api/auth/logout');
-
-    setSession();
-    return z.object({}).parse(response.data);
+    return fetchApiPrivate(port, token).get('/api/auth/logout');
   } catch (error) {
     throw handleErrors(error);
   }
