@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Clock4 } from 'lucide-react-native';
 import { ScrollView, View } from 'react-native';
+import { PatientDetailsDialog } from '~/components/featured/dialog/patient-details-dialog/patient-details-dialog';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
 import { Text } from '~/components/ui/text';
@@ -52,6 +53,7 @@ export function ScrollViewContentHorizontal({ data }: ScrollViewContentProps) {
               >
                 <Text className="text-primary">View details...</Text>
               </Button>
+              <PatientDetailsDialog data={data.data} id={dta.id} />
               <View className="flex flex-row items-center justify-center gap-2 p-2 text-center rounded-b-md bg-primary/90">
                 <Clock4 color="#fff" height={20} width={20} />
                 <Text className="text-primary-foreground">
