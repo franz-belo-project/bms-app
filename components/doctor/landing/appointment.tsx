@@ -1,7 +1,6 @@
 import RNDateTimePicker, {
   type DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
-import { useRouter } from 'expo-router';
 import { CircleHelp } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import {
@@ -13,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { noDataFound } from '~/assets';
+import { PatientDetailsDialog } from '~/components/featured/dialog/patient-details-dialog/patient-details-dialog';
 import {
   Accordion,
   AccordionContent,
@@ -28,7 +28,6 @@ import { useBranchPort } from '~/lib/hooks/use-branch-port';
 import { toHourTime, toParamsDate } from '~/lib/utils/format-date';
 
 export function AppointmentContent() {
-  const router = useRouter();
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [appointmentDate, setAppointmentDate] = useState(toParamsDate(date));
@@ -183,20 +182,7 @@ export function AppointmentContent() {
                       <Text className="text-muted-foreground/80">
                         End: {toHourTime(dta.end_at)}
                       </Text>
-                      <Button
-                        className="self-start mt-4 rounded-3xl text-primary"
-                        size="sm"
-                        variant="link"
-                        onPress={() =>
-                          // router.push(`./doctor/patient-details/${dta.id}`)
-                          router.push({
-                            pathname: `./doctor/patient-details/${dta.id}`,
-                            params: { date: dta.appointment_date },
-                          })
-                        }
-                      >
-                        <Text className="text-primary">View details...</Text>
-                      </Button>
+                      <PatientDetailsDialog data={data.data} id={dta.id} />
                     </View>
                   </AccordionContent>
                 </AccordionItem>
