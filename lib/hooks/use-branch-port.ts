@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { createWithEqualityFn } from 'zustand/traditional';
 import { secureBranchStorage } from './use-secure-branch';
 
 export type BranchPortState = {
@@ -8,7 +9,7 @@ export type BranchPortState = {
   clearSelectedBranch: () => void;
 };
 
-export const useBranchPort = create<BranchPortState>()(
+export const useBranchPort = createWithEqualityFn<BranchPortState>()(
   persist(
     (set) => ({
       selectedBranch: '',
